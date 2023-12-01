@@ -17,11 +17,17 @@
       </header>
         <main>
           <!-- Minicarrito info-->          
-            <div id="minicarrito">
+<!--             <div id="minicarrito">
                 <p><span id="cant-item"></span> ítems agregados</p>
                 <p>$<span id="precio-total"></span> es el total</p>
                 <p id="filtros">Filtrar por <a href="#" data-cat="1">Categoría 1</a> | <a href="#" data-cat="2">Categoría 2</a> | <a href="#" data-cat="3">Categoría 3</a></p>
-            </div>
+            </div> -->
+
+            <div>
+              <p>Carrito - Detalles:</p>
+              <p id="info-carrito">-</p>
+              <button id="reset">Vaciar carrito</button>
+          </div>
 
             <!-- Carrito -->
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -49,16 +55,18 @@
               </section>
             </div>
 
-            
-
             <h2>Productos</h2>
 
             <!-- Generar el contenido del div#productos dinámicamente -->
             <div id="productos">
-
+              <article class="card text-center">
+                <img src="assets/product/AroundTheFur-sm.png" alt="Producto1">
+                <button class="add" data-id="3" data-val="300" data-cat="1">Agregar al carrito</button>
+                <button data-id="3" data-val="300" data-cat="1" class="del">Quitar</button>
+              </article>
             </div>
             <!-- Modal -->
-          <div 
+          <!-- <div 
           class="modal fade" 
           id="modal4" 
           tabindex="-1" 
@@ -80,7 +88,7 @@
               </article>
             </section>
           </div>
-        </div>
+        </div> -->
 
 
         </main>

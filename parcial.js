@@ -61,65 +61,67 @@ const d = document;
 // Objetos:
 let info = d.querySelector('#info-carrito');
 let reset = d.querySelector('#reset');
-/* let addBtns = d.querySelectorAll('.add');
-let delBtns = d.querySelectorAll('.del'); */
+let addBtns = d.querySelectorAll('.add');
+let delBtns = d.querySelectorAll('.del');
 let filtros = d.querySelectorAll('#filtros a');
 
-/* Productos componentes*/
-const productosContenedor = d.getElementById('productos');
-const subtotalPrecio = document.getElementById('subtotal-precio').querySelector('span');
+let products;
+
+/* Productos */
+products = d.querySelector('#productos');
 
 /* Carrito componentes */
-const listaCarrito = document.getElementById('lista-carrito');
-const itemProducto = listaCarrito.children;
+/* const listaCarrito = document.getElementById('lista-carrito');
+const itemProducto = listaCarrito.children; */
 
-productos.forEach(producto => {
+productos.forEach((producto) => {
   const card = d.createElement('article');
   card.classList.add('card', 'text-center');
-  /* card.dataset.bsToggle = 'modal';
-  card.dataset.bsTarget = '#modal4'; */
+  products.append(card);
+
 
   const imagen = d.createElement('img');
   imagen.src = producto.imagen;
   imagen.alt = producto.nombre;
+  card.append(imagen);
 
   const categoria = d.createElement('p');
   categoria.textContent = producto.categoría;
+  card.appendChild(categoria);
 
   const titulo = d.createElement('h3');
   titulo.textContent = producto.nombre;
-
+  card.appendChild(titulo);
+  
   const descripcion = d.createElement('p');
   descripcion.textContent = producto.descripcion;
-
+  card.appendChild(descripcion);
+  
   const precio = d.createElement('p');
   const precioSpan = d.createElement('span');
   precioSpan.textContent = producto.precio;
   precio.appendChild(d.createTextNode('Precio: $'));
   precio.appendChild(precioSpan);
-
-  const addButton = d.createElement('button');
-  addButton.classList.add('add');
-  addButton.dataset.id = producto.id;
-  addButton.dataset.val = producto.precio;
-  addButton.dataset.cat = producto.categoría;
-  addButton.innerHTML = 'Agregar al carrito';
-  addButton.addEventListener('click', () => agregarAlCarrito(producto));
-
-  card.appendChild(imagen);
-  card.appendChild(categoria);
-  card.appendChild(titulo);
-  card.appendChild(descripcion);
   card.appendChild(precio);
-  card.appendChild(addButton);
+  
+  
+ /*  addBtns = d.createElement('button');
+  addBtns.classList.add('add');
+  addBtns.dataset.id = producto.id;
+  addBtns.dataset.val = producto.precio;
+  addBtns.dataset.cat = producto.categoría;
+  addBtns.innerHTML = 'Agregar al carrito';
+  addBtns.addEventListener('click', () => agregarAlCarrito(producto));
+
+  card.appendChild(addBtns); */
 
   // Agregar la tarjeta al contenedor principal
-  productosContenedor.appendChild(card);
+//   productosContenedor.appendChild(card);
 });
 
 /* Agregar item carrito */
- function agregarAlCarrito(producto) {
-  /* Lista */
+/*  function agregarAlCarrito(producto) {
+  // Lista
   const listItem = document.createElement('li');
   listItem.classList.add('item-producto');
 
@@ -144,7 +146,7 @@ productos.forEach(producto => {
   delButton.dataset.cat = producto.categoría;
   delButton.innerHTML = 'x';
 
-  /* Info */
+  // Info
   
   delButton.addEventListener('click', () => eliminarDelCarrito(listItem));
 
@@ -152,12 +154,95 @@ productos.forEach(producto => {
   listItem.appendChild(delButton);
   listaCarrito.appendChild(listItem);
   
-}
+} */
 
 
-function eliminarDelCarrito(item) {
+/* function eliminarDelCarrito(item) {
   listaCarrito.removeChild(item);
 
+} */
+
+let carrito = {
+    productosIds: [],
+    cantidades: [],
+    total: 0,
+};
+
+const mostrarCarrito = () => {
+    // Muestro el detalle del carrito:
+    info.innerHTML = `
+    Productos: ${carrito.productosIds} <br />
+    Cantidades: ${carrito.cantidades} (${carrito.cantidades.reduce((acum, n) => acum + n, 0)})<br />
+    Total: $${carrito.total}
+    `;
+    // mostrarCarritoUsuario();
+};
+
+// Acción de los botones para agregar productos:
+for (let btn of addBtns) {
+    btn.addEventListener('click', (e) => {
+        let id = parseInt(e.target.dataset.id);
+        let val = parseInt(e.target.dataset.val);
+        // Se verifica si ya existe el producto:
+        let indiceId = carrito.productosIds.indexOf(id);
+        if (indiceId != -1) {
+            // Si existe, se actualiza el índice de la cantidades:
+            carrito.cantidades[indiceId]++;
+        } else {
+            // Si no existe, se crea el índice en productosId y cantidades:
+            carrito.productosIds.push(id);
+            carrito.cantidades.push(1);
+        }
+        // Se actualiza el total:
+        carrito.total = parseInt(carrito.total) + val;
+        // Se muestra el detalle del carrito:
+        mostrarCarrito();
+    });
 }
 
-/* Carrito info */
+// Acción de los botones para quitar productos:
+for (let btn of delBtns) {
+    btn.addEventListener('click', (e) => {
+        let id = parseInt(e.target.dataset.id);
+        let val = parseInt(e.target.dataset.val);
+        // Se verifica si ya existe el producto:
+        let indiceId = carrito.productosIds.indexOf(id);
+        if (indiceId != -1) {
+            // Verifico si llegó a cero:
+            if (carrito.cantidades[indiceId] > 0) {
+                // Si existe, actualizo el índice de la cantidad:
+                carrito.cantidades[indiceId]--;
+                // Actualizo el total:
+                carrito.total = parseInt(carrito.total) - val;
+            }
+        }
+        // Se muestra el detalle del carrito:
+        mostrarCarrito();
+    });
+}
+
+// Reseteo:
+reset.addEventListener('click', (e) => {
+    // Se limpia el carrito:
+    carrito = {
+        productosIds: [],
+        cantidades: [],
+        total: 0,
+    };
+    // Se muestra el detalle del carrito limpio:
+    mostrarCarrito();
+    // Opcionalmente, refrescar la página:
+    // location.reload();
+});
+
+
+// Mostrar carrito inicial:
+mostrarCarrito();
+
+  /* card.dataset.bsToggle = 'modal';
+  card.dataset.bsTarget = '#modal4'; */
+
+  /*   card.appendChild(categoria);
+  card.appendChild(titulo);
+  card.appendChild(descripcion);
+  card.appendChild(precio); */
