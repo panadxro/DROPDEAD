@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;1,100&family=Poppins:wght@200;400;600&display=swap');
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Poppins;
+}
+picture {
+  overflow: hidden;
+}
+/* img {
+  width: 100%;
+} */
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 5em;
+}
+#minicarrito {
+  display: flex;
+  justify-content: center;
+  background-color: brown;
+}
+
+/* Cart */
+#lista-carrito {
+  list-style: none;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  width: 95%;
+}
+.item-producto {
+  display: flex;
+  background-color: cyan;
+  padding: 1em;
+  align-items: center;
+  justify-content: space-between;
+}
+.descrip-car{
+  display: flex;
+  justify-content: center;
+  
+}
+.miniportada {
+  width: 3em;
+  height: 3em;
+  margin-right: 1em;
+}
+
+.product-del {
+  padding: .5em;
+  display: block;
+  cursor: pointer;
+  font-weight: 800;
+}
+.titulo-car {
+  line-height: 1.5em;
+  font-size: 1em;
+  font-weight: 800;
+}
+
+
+/* Productos */
+#productos {
+  width: 80%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
