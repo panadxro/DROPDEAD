@@ -1,15 +1,27 @@
 'use strict';
-
+/* PANADERO LUCAS DWT2AP TP2 - Ecommerce */
 const d = document;
 const productos = [
-  { id: 1, nombre: 'Producto1', descripcion: 'Descripción del producto', precio: 1, imagen: 'assets/product/AroundTheFur-sm.png', categoria: 'Remera' },
-  { id: 2, nombre: 'Producto2', descripcion: 'Descripción del producto', precio: 2, imagen: 'assets/product/AroundTheFur-sm.png', categoria: 'Buzo' },
-  { id: 3, nombre: 'Producto3', descripcion: 'Descripción del producto', precio: 3, imagen: 'assets/product/AroundTheFur-sm.png', categoria: 'Campera' },
-  { id: 4, nombre: 'Producto4', descripcion: 'Descripción del producto', precio: 4, imagen: 'assets/product/AroundTheFur-sm.png', categoria: 'Pantalon' },
-  { id: 5, nombre: 'Producto5', descripcion: 'Descripción del producto', precio: 5, imagen: 'assets/product/AroundTheFur-sm.png', categoria: 'Accesorio' },
-  { id: 6, nombre: 'Producto6', descripcion: 'Descripción del producto', precio: 6, imagen: 'assets/product/AroundTheFur-sm.png', categoria: 'Buzo' },
+  { id: 1, nombre: '28 Days', descripcion: 'Ring', precio: 20, imagen: 'assets/product/28Days.png', categoria: 'Accesorio' },
+  { id: 2, nombre: 'Angel Soup', descripcion: 'Blue Longsleeve', precio: 70, imagen: 'assets/product/AngelSoup.png', categoria: 'Remera' },
+  { id: 3, nombre: 'Around The Fur', descripcion: 'Faux fur jacket', precio: 200, imagen: 'assets/product/AroundTheFur.png', categoria: 'Campera' },
+  { id: 4, nombre: 'Blessings', descripcion: 'Longsleeve', precio: 70, imagen: 'assets/product/Blessing.png', categoria: 'Remera' },
+  { id: 5, nombre: 'Glow Bottoms', descripcion: 'Black Sweatpants', precio: 120, imagen: 'assets/product/GlowBottoms.png', categoria: 'Pantalon' },
+  { id: 6, nombre: 'Hollowed Soul', descripcion: 'Washed Black Hoodie', precio: 120, imagen: 'assets/product/HollowedSoul.png', categoria: 'Buzo' },
+  { id: 7, nombre: "J'adore Hardcore", descripcion: '2 in 1 Jacket', precio: 200, imagen: 'assets/product/J_AdoreHardcore.png', categoria: 'Campera' },
+  { id: 8, nombre: 'Lure', descripcion: 'Distressed Hoodie', precio: 120, imagen: 'assets/product/Lure.png', categoria: 'Buzo' },
+  { id: 9, nombre: 'Makeover', descripcion: 'Washed Black T-Shirt', precio: 50, imagen: 'assets/product/Makeover.png', categoria: 'Remera' },
+  { id: 10, nombre: 'Mala', descripcion: 'Wooden bead necklace', precio: 20, imagen: 'assets/product/Mala.png', categoria: 'Accesorio' },
+  { id: 11, nombre: 'Max Pain', descripcion: 'Racer Jacket', precio: 250, imagen: 'assets/product/MaxPain.png', categoria: 'Campera' },
+  { id: 12, nombre: "Rot 'N' Roll", descripcion: 'Washed Black T-Shirt', precio: 60, imagen: 'assets/product/RotNRoll.png', categoria: 'Remera' },
+  { id: 13, nombre: 'Seek & Destroy', descripcion: 'Denim Jeans', precio: 120, imagen: 'assets/product/Seek_Destroy.png', categoria: 'Pantalon' },
+  { id: 14, nombre: 'Sigil', descripcion: 'Earrings', precio: 20, imagen: 'assets/product/Sigil.png', categoria: 'Accesorio' },
+  { id: 15, nombre: 'Spiritual', descripcion: 'Socks (Pack of 2)', precio: 20, imagen: 'assets/product/Spiritual.png', categoria: 'Accesorio' },
+  { id: 16, nombre: 'Tamriel', descripcion: 'Broach', precio: 15, imagen: 'assets/product/Tamriel.png', categoria: 'Accesorio' },
+  { id: 17, nombre: 'Violence', descripcion: 'Elasticated Shorts', precio: 60, imagen: 'assets/product/Violence.png', categoria: 'Pantalon' },
 ];
 
+/* DOM */
 const info = d.querySelector('#info-carrito');
 const filtros = d.querySelectorAll('#filtros a');
 const products = d.querySelector('#productos');
@@ -22,7 +34,9 @@ const modalBody = d.getElementById('productoModalBody');
 
 let carrito = { productosIds: [], cantidades: [], total: 0 };
 
+/* Productos en interfaz */
 productos.forEach(producto => {
+  /* Crear y agregar elementos al DOM */
   const card = d.createElement('article');
   card.classList.add('card', 'text-center');
   products.append(card);
@@ -44,7 +58,6 @@ productos.forEach(producto => {
   descripcion.textContent = producto.descripcion;
   card.appendChild(descripcion);
 
-
   const precio = d.createElement('p');
   const precioSpan = d.createElement('span');
   precio.classList.add('price');
@@ -63,6 +76,7 @@ productos.forEach(producto => {
   card.appendChild(addBtn);
 });
 
+/* Vaciar carrito */
 reset.addEventListener('click', () => {
   carrito = { productosIds: [], cantidades: [], total: 0 };
   while (listaCarrito.hasChildNodes()) {
@@ -71,6 +85,7 @@ reset.addEventListener('click', () => {
   mostrarCarrito();
 });
 
+/* Agregar producto al carrito */
 function agregarAlCarrito(producto) {
   const id = producto.id;
   const val = producto.precio;
@@ -130,6 +145,7 @@ function agregarAlCarrito(producto) {
   mostrarCarrito();
 }
 
+/* Eliminar producto del carrito */
 function eliminarDelCarrito(item) {
   const id = parseInt(item.querySelector('.del').dataset.id);
   const val = parseInt(item.querySelector('.del').dataset.val);
@@ -151,6 +167,7 @@ for (let btn of d.querySelectorAll('.del')) {
   });
 }
 
+/* Mostrar carrito en interfaz */
 const mostrarCarrito = () => {
   const total = carrito.cantidades.reduce((acum, cantidad, indice) => {
     const producto = productos.find(p => p.id === carrito.productosIds[indice]);
@@ -164,6 +181,7 @@ const mostrarCarrito = () => {
   totalElement.textContent = `$${total}`;
 };
 
+/* Detalles del producto */
 function detalleProducto(producto) {
   while (modalBody.hasChildNodes()) {
     modalBody.removeChild(modalBody.firstChild);
@@ -177,7 +195,7 @@ function detalleProducto(producto) {
     { tag: 'p', textContent: `$${producto.precio}`, classList: ['price'] },
     { tag: 'button', classList: ['add'], dataset: { id: producto.id, val: producto.precio, cat: producto.categoria }, innerHTML: 'Agregar al carrito', eventListener: () => agregarAlCarrito(producto) }
   ];
-
+ 
   elements.forEach(element => {
     const el = d.createElement(element.tag);
     if (element.textContent) el.textContent = element.textContent;
@@ -191,11 +209,11 @@ function detalleProducto(producto) {
 }
 
 const categorias = d.querySelectorAll('.dropdown-item');
-
+/* Filtrar */
 categorias.forEach(categoria => {
   categoria.addEventListener('click', () => filtrarCat(categoria.dataset.cat));
 });
-
+/* Filtrar productos por categoría */
 function filtrarCat(categoriaSelect) {
   const productosFiltrados = categoriaSelect === 'todo' ? productos : productos.filter(producto => producto.categoria === categoriaSelect);
 
@@ -243,5 +261,5 @@ function filtrarCat(categoriaSelect) {
     card.appendChild(addBtn);
   });
 }
-
+/* Inicializar: Mostrar productos */
 mostrarCarrito();
