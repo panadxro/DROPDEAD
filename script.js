@@ -95,7 +95,7 @@ function agregarAlCarrito(producto) {
     carrito.cantidades[indiceId]++;
     carrito.total += val;
     const cantidadElement = itemProducto[indiceId].querySelector('.cantidad-prod');
-    cantidadElement.textContent = `${carrito.cantidades[indiceId]}`;
+    cantidadElement.textContent = `x${carrito.cantidades[indiceId]}`;
   } else {
     carrito.productosIds.push(id);
     carrito.cantidades.push(1);
@@ -122,7 +122,7 @@ function agregarAlCarrito(producto) {
     spanPrecio.appendChild(precioProcucto);
     const cantidadProducto = d.createElement('span');
     cantidadProducto.classList.add('cantidad-prod');
-    cantidadProducto.textContent = `${carrito.cantidades[carrito.productosIds.indexOf(producto.id)] || 0}`;
+    cantidadProducto.textContent = `x${carrito.cantidades[carrito.productosIds.indexOf(producto.id)] || 0}`;
     tituloCar.appendChild(nombreProducto);
     tituloCar.appendChild(d.createElement('br'));
     tituloCar.appendChild(spanPrecio);

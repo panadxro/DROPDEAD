@@ -15,7 +15,7 @@ img {
 }
 /* Header */
 .navbar-brand {
-  background: url('../assets/icon/NEW_SITE_LOGO_BLACK_220x.png') no-repeat center center;
+  background: url('assets/icon/NEW_SITE_LOGO_BLACK_220x.png') no-repeat center center;
   width:116px ;
   height: 44px;
   display:inline-block;
