@@ -27,6 +27,8 @@
               <p>Carrito - Detalles:</p>
               <p id="info-carrito">-</p>
               <button id="reset">Vaciar carrito</button>
+              <ul id="lista-carrito">
+              </ul>
           </div>
 
             <!-- Carrito -->
@@ -34,18 +36,18 @@
               <section class="carrito">
                 <div>
                   <h2>Carrito de compras<span id="cant-items"></span></h2>
-                  <button id="reset">Vaciar</button>
+                  <!-- <button class="reset">Vaciar</button> -->
                 </div>
-                <ul id="lista-carrito">
-                  <li class="item-producto">
+
+<!--                   <li class="item-producto">
                     <div class="descrip-car">
                       <img class="miniportada" style="background-color: #244;"/>
                       <h3 class="titulo-car">Titulo producto <br>
                       $<span>25</span></h3>
                     </div>
                     <button data-id="3" data-val="300" data-cat="1" class="del">x</button>
-                  </li>
-                </ul>
+                  </li> -->
+
                 <article>
                   <p>TOTAL:</p>
                   <p>$<span id="subtotal-precio"></span></p>
@@ -59,11 +61,12 @@
 
             <!-- Generar el contenido del div#productos dinámicamente -->
             <div id="productos">
-              <article class="card text-center">
+<!--               <article class="card text-center">
                 <img src="assets/product/AroundTheFur-sm.png" alt="Producto1">
                 <button class="add" data-id="3" data-val="300" data-cat="1">Agregar al carrito</button>
                 <button data-id="3" data-val="300" data-cat="1" class="del">Quitar</button>
-              </article>
+              </article> -->
+              
             </div>
             <!-- Modal -->
           <!-- <div 

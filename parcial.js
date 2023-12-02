@@ -11,7 +11,7 @@ let productos = [
         descripcion: 'Descripción del producto',
         precio: 1,
         imagen: 'assets/product/AroundTheFur-sm.png',
-        categoría: 'Nombre de la categoría',
+        categoría: '2',
     },
     {
         id: 2,
@@ -19,7 +19,7 @@ let productos = [
         descripcion: 'Descripción del producto',
         precio: 2,
         imagen: 'assets/product/AroundTheFur-sm.png',
-        categoría: 'Nombre de la categoría',
+        categoría: '3',
     },
     {
         id: 3,
@@ -27,7 +27,7 @@ let productos = [
         descripcion: 'Descripción del producto',
         precio: 3,
         imagen: 'assets/product/AroundTheFur-sm.png',
-        categoría: 'Nombre de la categoría',
+        categoría: '1',
     },
     {
         id: 4,
@@ -35,7 +35,7 @@ let productos = [
         descripcion: 'Descripción del producto',
         precio: 4,
         imagen: 'assets/product/AroundTheFur-sm.png',
-        categoría: 'Nombre de la categoría',
+        categoría: '2',
     },
     {
         id: 5,
@@ -43,7 +43,7 @@ let productos = [
         descripcion: 'Descripción del producto',
         precio: 5,
         imagen: 'assets/product/AroundTheFur-sm.png',
-        categoría: 'Nombre de la categoría',
+        categoría: '1',
     },
     {
         id: 6,
@@ -51,7 +51,7 @@ let productos = [
         descripcion: 'Descripción del producto',
         precio: 6,
         imagen: 'assets/product/AroundTheFur-sm.png',
-        categoría: 'Nombre de la categoría'
+        categoría: '3'
     },
 ];
 
@@ -60,19 +60,15 @@ const d = document;
 
 // Objetos:
 let info = d.querySelector('#info-carrito');
-let reset = d.querySelector('#reset');
-let addBtns = d.querySelectorAll('.add');
-let delBtns = d.querySelectorAll('.del');
 let filtros = d.querySelectorAll('#filtros a');
-
 let products;
 
 /* Productos */
 products = d.querySelector('#productos');
 
 /* Carrito componentes */
-/* const listaCarrito = document.getElementById('lista-carrito');
-const itemProducto = listaCarrito.children; */
+const listaCarrito = document.getElementById('lista-carrito');
+let itemProducto = listaCarrito.children;
 
 productos.forEach((producto) => {
   const card = d.createElement('article');
@@ -87,80 +83,109 @@ productos.forEach((producto) => {
 
   const categoria = d.createElement('p');
   categoria.textContent = producto.categoría;
-  card.appendChild(categoria);
+  // card.appendChild(categoria);
 
   const titulo = d.createElement('h3');
   titulo.textContent = producto.nombre;
-  card.appendChild(titulo);
+  // card.appendChild(titulo);
   
   const descripcion = d.createElement('p');
   descripcion.textContent = producto.descripcion;
-  card.appendChild(descripcion);
+  // card.appendChild(descripcion);
   
   const precio = d.createElement('p');
   const precioSpan = d.createElement('span');
   precioSpan.textContent = producto.precio;
   precio.appendChild(d.createTextNode('Precio: $'));
   precio.appendChild(precioSpan);
-  card.appendChild(precio);
+  // card.appendChild(precio);
   
   
- /*  addBtns = d.createElement('button');
-  addBtns.classList.add('add');
-  addBtns.dataset.id = producto.id;
-  addBtns.dataset.val = producto.precio;
-  addBtns.dataset.cat = producto.categoría;
-  addBtns.innerHTML = 'Agregar al carrito';
-  addBtns.addEventListener('click', () => agregarAlCarrito(producto));
+  let addBtn = d.createElement('button');
+  addBtn.classList.add('add');
+  addBtn.dataset.id = producto.id;
+  addBtn.dataset.val = producto.precio;
+  addBtn.dataset.cat = producto.categoría;
+  addBtn.innerHTML = 'Agregar al carrito';
 
-  card.appendChild(addBtns); */
+  addBtn.addEventListener('click', () => agregarAlCarrito(producto));
+  card.appendChild(addBtn);
 
-  // Agregar la tarjeta al contenedor principal
-//   productosContenedor.appendChild(card);
 });
+let addBtns = d.querySelectorAll('.add');
+
+let cantidadGeneral = 0;
+let cantidadesIndividuales = {};
 
 /* Agregar item carrito */
-/*  function agregarAlCarrito(producto) {
+ function agregarAlCarrito(producto) {
   // Lista
-  const listItem = document.createElement('li');
+  const listItem = d.createElement('li');
   listItem.classList.add('item-producto');
+  listaCarrito.appendChild(listItem);
 
-  const descripCar = document.createElement('div');
+  const descripCar = d.createElement('div');
   descripCar.classList.add('descrip-car');
+  listItem.appendChild(descripCar);
 
-  const miniportada = document.createElement('img');
+  const miniportada = d.createElement('img');
   miniportada.classList.add('miniportada');
-  miniportada.style.backgroundColor = '#FF0';
+  miniportada.src = producto.imagen;
+  miniportada.alt = producto.nombre;
+  descripCar.appendChild(miniportada);
+  
 
-  const tituloCar = document.createElement('h3');
+  const tituloCar = d.createElement('h3');
   tituloCar.classList.add('titulo-car');
   tituloCar.innerHTML = `${producto.nombre} <br> $<span>${producto.precio}</span>`;
-
-  descripCar.appendChild(miniportada);
   descripCar.appendChild(tituloCar);
 
-  const delButton = document.createElement('button');
-  delButton.classList.add('del');
-  delButton.dataset.id = producto.id;
-  delButton.dataset.val = producto.precio;
-  delButton.dataset.cat = producto.categoría;
-  delButton.innerHTML = 'x';
 
+  const delBtn = d.createElement('button');
+  delBtn.classList.add('del');
+  delBtn.dataset.id = producto.id;
+  delBtn.dataset.val = producto.precio;
+  delBtn.dataset.cat = producto.categoría;
+  delBtn.innerHTML = 'x';
+  listItem.appendChild(delBtn);
+  
+  
+  delBtn.addEventListener('click', () => eliminarDelCarrito(listItem));
+  
   // Info
-  
-  delButton.addEventListener('click', () => eliminarDelCarrito(listItem));
-
-  listItem.appendChild(descripCar);
-  listItem.appendChild(delButton);
-  listaCarrito.appendChild(listItem);
-  
-} */
+  mostrarCarrito();
+}
 
 
-/* function eliminarDelCarrito(item) {
+let delBtns = d.querySelectorAll('.del');
+
+function eliminarDelCarrito(item) {
+  const id = parseInt(item.querySelector('.del').dataset.id);
+  const val = parseInt(item.querySelector('.del').dataset.val);
+
+  // Elimina el elemento del carrito
   listaCarrito.removeChild(item);
 
-} */
+  // Actualiza la cantidad y el total en el carrito
+  const indiceId = carrito.productosIds.indexOf(id);
+  if (indiceId !== -1 && carrito.cantidades[indiceId] > 0) {
+    // Si existe, actualiza el índice de la cantidad y el total
+    carrito.cantidades[indiceId]--;
+    carrito.total = parseInt(carrito.total) - val;
+  }
+
+  // Muestra el detalle del carrito actualizado
+  mostrarCarrito();
+}
+
+// Acción de los botones para quitar productos:
+for (let btn of delBtns) {
+  btn.addEventListener('click', (e) => {
+    const item = e.target.closest('.item-producto');
+    eliminarDelCarrito(item);
+  });
+}
+
 
 let carrito = {
     productosIds: [],
@@ -171,7 +196,7 @@ let carrito = {
 const mostrarCarrito = () => {
     // Muestro el detalle del carrito:
     info.innerHTML = `
-    Productos: ${carrito.productosIds} <br />
+    Productos: ${carrito.productosIds} <br/>
     Cantidades: ${carrito.cantidades} (${carrito.cantidades.reduce((acum, n) => acum + n, 0)})<br />
     Total: $${carrito.total}
     `;
@@ -200,39 +225,23 @@ for (let btn of addBtns) {
     });
 }
 
-// Acción de los botones para quitar productos:
-for (let btn of delBtns) {
-    btn.addEventListener('click', (e) => {
-        let id = parseInt(e.target.dataset.id);
-        let val = parseInt(e.target.dataset.val);
-        // Se verifica si ya existe el producto:
-        let indiceId = carrito.productosIds.indexOf(id);
-        if (indiceId != -1) {
-            // Verifico si llegó a cero:
-            if (carrito.cantidades[indiceId] > 0) {
-                // Si existe, actualizo el índice de la cantidad:
-                carrito.cantidades[indiceId]--;
-                // Actualizo el total:
-                carrito.total = parseInt(carrito.total) - val;
-            }
-        }
-        // Se muestra el detalle del carrito:
-        mostrarCarrito();
-    });
-}
 
 // Reseteo:
-reset.addEventListener('click', (e) => {
-    // Se limpia el carrito:
+let reset = d.querySelector('#reset');
+reset.addEventListener('click', () => {
     carrito = {
         productosIds: [],
         cantidades: [],
         total: 0,
     };
-    // Se muestra el detalle del carrito limpio:
+    cantidadGeneral = 0;
+    cantidadesIndividuales = {};
+
+    
+    while (listaCarrito.hasChildNodes()) {
+      listaCarrito.removeChild(listaCarrito.firstChild);
+    }
     mostrarCarrito();
-    // Opcionalmente, refrescar la página:
-    // location.reload();
 });
 
 
@@ -241,8 +250,3 @@ mostrarCarrito();
 
   /* card.dataset.bsToggle = 'modal';
   card.dataset.bsTarget = '#modal4'; */
-
-  /*   card.appendChild(categoria);
-  card.appendChild(titulo);
-  card.appendChild(descripcion);
-  card.appendChild(precio); */
