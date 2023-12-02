@@ -10,10 +10,25 @@
         <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
-      <header>
-        <a href="#">DeadDrop</a>
-
-        <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Ver carrito</button>
+      <header id="navegador" class="navbar navbar-expand-lg">
+        <nav class="container">
+          <h1><a class="navbar-brand" href="#inicio">Dropdead</a></h1>
+          <div class="nav-item nav-underline dropdown">
+            <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">CATEGORIAS</a>
+            <ul class="dropdown-menu">
+              <li><a href="#" data-cat="todo" class="dropdown-item">TODO</a></li>
+              <li><a href="#" data-cat="Remera" class="dropdown-item">REMERAS</a></li>
+              <li><a href="#" data-cat="Buzo" class="dropdown-item">BUZOS</a></li>
+              <li><a href="#" data-cat="Campera" class="dropdown-item">CAMPERAS</a></li>
+              <li><a href="#" data-cat="Pantalon" class="dropdown-item">PANTALONES</a></li>
+              <li><a href="#" data-cat="Accesorio" class="dropdown-item">ACCESORIOS</a></li>
+            </ul>
+          </div>
+          <div class="carrito  d-flex justify-content-center align-items-center">
+            <button class="ico-nav" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Ver carrito</button>
+            <span id="contadorCarrito" class="badge bg-danger">0</span>
+          </div>
+        </nav>
       </header>
         <main>
           <!-- Minicarrito info-->          
@@ -23,35 +38,23 @@
                 <p id="filtros">Filtrar por <a href="#" data-cat="1">Categoría 1</a> | <a href="#" data-cat="2">Categoría 2</a> | <a href="#" data-cat="3">Categoría 3</a></p>
             </div> -->
 
-            <div>
-              <p>Carrito - Detalles:</p>
-              <p id="info-carrito">-</p>
-              <button id="reset">Vaciar carrito</button>
-              <ul id="lista-carrito">
-              </ul>
-          </div>
-
             <!-- Carrito -->
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
               <section class="carrito">
                 <div>
-                  <h2>Carrito de compras<span id="cant-items"></span></h2>
-                  <!-- <button class="reset">Vaciar</button> -->
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  <h2>Carrito de compras</h2>
+                  <button id="reset">Vaciar carrito</button>
+                  <span id="cantidades-carrito"></span>
                 </div>
-
-<!--                   <li class="item-producto">
-                    <div class="descrip-car">
-                      <img class="miniportada" style="background-color: #244;"/>
-                      <h3 class="titulo-car">Titulo producto <br>
-                      $<span>25</span></h3>
-                    </div>
-                    <button data-id="3" data-val="300" data-cat="1" class="del">x</button>
-                  </li> -->
-
+                
+                <ul id="lista-carrito">
+                </ul>
+                
+                
                 <article>
-                  <p>TOTAL:</p>
-                  <p>$<span id="subtotal-precio"></span></p>
-                  <button>Cerrar</button>
+                  <p id="info-carrito">-</p>
+                  <p>TOTAL:<span id="total-carrito"></span></p>
                   <button>Checkout</button>
                 </article>
               </section>
@@ -61,37 +64,21 @@
 
             <!-- Generar el contenido del div#productos dinámicamente -->
             <div id="productos">
-<!--               <article class="card text-center">
-                <img src="assets/product/AroundTheFur-sm.png" alt="Producto1">
-                <button class="add" data-id="3" data-val="300" data-cat="1">Agregar al carrito</button>
-                <button data-id="3" data-val="300" data-cat="1" class="del">Quitar</button>
-              </article> -->
+
               
             </div>
             <!-- Modal -->
-          <!-- <div 
-          class="modal fade" 
-          id="modal4" 
-          tabindex="-1" 
-          aria-labelledby="exampleModalLabel" 
-          aria-hidden="true"
-          >
-          <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
-            <section class="modal-content d-flex flex-lg-row align-items-center modal-body">
-              <picture class="prod-modal">
-                <source media="(max-width: 834px)" srcset="assets/product/Lure-sm.png">
-                <source media="(max-width: 1024px)" srcset="assets/product/Lure-md.png">
-                <img src="assets/product/Lure-lg.png" alt="Buzo con capucha desgastado color gris">
-              </picture>
-              <article>
-                <h4 class="titulo">Lure</h4>
-                <p>Confeccionada en suave algodón gris marengo, es la combinación perfecta de comodidad y diseño contemporáneo. Lure se presenta en un corte relajado, con una acogedora capucha y un práctico bolsillo canguro.</p>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Agregar al carrito</button>
-              </article>
-            </section>
+            <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="modal-body" id="productoModalBody">
+                          <!-- Contenido del producto se agregará aquí dinámicamente -->
+                        </div>
+                  </div>
+              </div>
           </div>
-        </div> -->
+          
 
 
         </main>

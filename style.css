@@ -21,6 +21,12 @@ header {
   justify-content: center;
   background-color: brown;
 }
+.dropdown:hover .dropdown-menu {
+  display: block !important;
+}
+.dropdown:focus .dropdown-menu {
+  display: block !important;
+}
 
 /* Cart */
 #lista-carrito {
@@ -69,3 +75,9 @@ header {
   grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
 }
+
+/* Modal */
+.modal-content {
+  flex-direction: row;
+}
+.
